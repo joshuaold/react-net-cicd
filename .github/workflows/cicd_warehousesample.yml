@@ -1,4 +1,4 @@
-name: Backend
+name: Frontend
 
 on:
   push:
@@ -11,14 +11,33 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
-      - run: |
-          cd server
-          docker build . -t warehousesampleregistries.azurecr.io/cicd:${{ github.sha }}
-          docker login -u warehousesampleregistries -p bk4TBuR4+EWDbjUYpcPP5wbkT92rUC5+ https://warehousesampleregistries.azurecr.io
-          docker push warehousesampleregistries.azurecr.io/cicd:${{ github.sha }}
-      - uses: azure/webapps-deploy@v2
+      - name: Begin
+        uses: actions/checkout@v2
+
+      - name: Setup node
+        uses: actions/setup-node@v2
         with:
-          app-name: "warehousesample"
-          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
-          images: "warehousesampleregistries.azurecr.io/cicd:${{ github.sha }}"
+          node-version: "14"
+
+      - name: Install node_modules
+        run: |
+          cd client
+          npm install
+      - name: Build static app
+        run: |
+          cd client
+          CI=false npm run build
+      - name: Install azcopy
+        uses: kheiakiyama/install-azcopy-action@v1.0.3
+
+      - uses: kheiakiyama/install-azcopy-action@v1
+        with:
+          version: "v10"
+
+      - run: azcopy_v10 rm 'https://warehousesamplestorage.blob.core.windows.net/$web?sp=racwdli&st=2022-03-13T00:03:01Z&se=2022-03-13T08:03:01Z&spr=https&sv=2020-08-04&sr=c&sig=pTjS3YA5qqvJTVUjH5U9FjyRf%2BeFm1rn4Dx0n1i4T%2Bk%3D' --recursive
+
+      ## Copy the contents of the azure functions
+      - uses: kheiakiyama/install-azcopy-action@v1
+        with:
+          version: "v10"
+      - run: azcopy_v10 copy './Client/build/*' 'https://warehousesamplestorage.blob.core.windows.net/$web?sp=racwdli&st=2022-03-13T00:03:01Z&se=2022-03-13T08:03:01Z&spr=https&sv=2020-08-04&sr=c&sig=pTjS3YA5qqvJTVUjH5U9FjyRf%2BeFm1rn4Dx0n1i4T%2Bk%3D' --recursive
