@@ -3,7 +3,7 @@ name: Backend
 on:
   push:
     branches:
-      - github-actions
+      - cicd
   workflow_dispatch:
 
 jobs:
