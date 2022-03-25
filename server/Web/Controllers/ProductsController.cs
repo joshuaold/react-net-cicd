@@ -62,18 +62,18 @@ namespace Web.Controllers
                 new Product()
                 {
                     Id = Guid.NewGuid(),
-                    Name = "Product3",
-                    Description = "Description3",
-                    Price = 3,
-                    DeliveryPrice = 33
+                    Name = "Product4",
+                    Description = "Description4",
+                    Price = 4,
+                    DeliveryPrice = 44
                 },
                 new Product()
                 {
                     Id = Guid.NewGuid(),
-                    Name = "Product",
-                    Description = "Description4",
-                    Price = 4,
-                    DeliveryPrice = 44
+                    Name = "Product5",
+                    Description = "Description5",
+                    Price = 5,
+                    DeliveryPrice = 55
                 }
             };
 
