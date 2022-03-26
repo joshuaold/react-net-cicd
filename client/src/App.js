@@ -16,7 +16,7 @@ const App = () => {
 
   return (
     <div>
-      <h1>6543513213</h1>
+      <h1>2222</h1>
       {products && products.items.map((product) => <p>{product.name}</p>)}
     </div>
   );

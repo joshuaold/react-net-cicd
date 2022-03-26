@@ -40,7 +40,7 @@ namespace Web.Controllers
                  new Product()
                 {
                     Id = Guid.NewGuid(),
-                    Name = "754564564",
+                    Name = "111111",
                     Description = "New",
                     Price = 3,
                     DeliveryPrice = 33

@@ -20,7 +20,7 @@ jobs:
 
       - name: Build container
         working-directory: ./server
-        run: docker build . -t ${{ env.WAREHOUSE_SAMPLE_REGISTRIES_CICD_CONTAINER }}${{ github.sha }}
+        run: docker build . -t ${{ env.WAREHOUSE_SAMPLE_REGISTRIES_CICD_CONTAINER }}:${{ github.sha }}
 
       - name: Login to container registry
         working-directory: ./server
