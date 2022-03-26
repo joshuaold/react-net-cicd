@@ -1,14 +1,17 @@
 import { useState, useEffect } from "react";
-import logo from "./logo.svg";
 import "./App.css";
 import { get } from "./fetch-helper";
 
 const App = () => {
   const [products, setProducts] = useState();
 
-  useEffect(async () => {
-    const response = await getProducts();
-    setProducts(response);
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const response = await getProducts();
+      setProducts(response);
+    };
+
+    fetchProducts();
   }, []);
 
   return (
