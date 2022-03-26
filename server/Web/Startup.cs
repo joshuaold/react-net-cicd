@@ -38,6 +38,16 @@ namespace Web
                 return type.Name;
             };
 
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(
+                    builder =>
+                    {
+                        builder.SetIsOriginAllowedToAllowWildcardSubdomains().WithOrigins(new[] { "https://warehousesamplestorage.z26.web.core.windows.net/" }).AllowCredentials().AllowAnyMethod().AllowAnyHeader();
+                    }
+                );
+            });
+
             string connectionString = Configuration.GetConnectionString("SQLServer").Replace("{directory}", _webHostEnvironment.ContentRootPath);
             services.AddTransient<IConnection>(x => new SQLServerConnection(connectionString)); // TODO: this needs to be dynamic so the repository can decide what connection it wants to use
             services.AddTransient<IProductRepository, ProductRepository>();
@@ -55,6 +65,7 @@ namespace Web
             app.UseHttpsRedirection();
 
             app.UseRouting();
+            app.UseCors();
 
             app.UseAuthorization();
 

@@ -22,19 +22,29 @@ namespace Web.Controllers
             _productRepository = productRepository;
         }
 
-        /// <summary>
-        /// 1. `GET /products` - gets all products.
-        /// 2. `GET /products?name={name}` - finds all products matching the specified name.
-        /// </summary>
-        /// <param name="name"></param>
-        /// <returns></returns>
-        [HttpGet]
-        public async Task<IActionResult> GetProducts([FromQuery] string name)
+        [HttpGet("constant")]
+        public async Task<IActionResult> GetProductsConstant([FromQuery] string name)
         {
             /*var products = string.IsNullOrWhiteSpace(name) ? await _productRepository.GetAllAsync() : await _productRepository.GetProductsByNameAsync(name); // TODO: find a better way of making this extensible in case new query parameters are added*/
 
             var products = new List<Product>()
             {
+                new Product()
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "rf d",
+                    Description = "New",
+                    Price = 3,
+                    DeliveryPrice = 33
+                },
+                 new Product()
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "111111",
+                    Description = "New",
+                    Price = 3,
+                    DeliveryPrice = 33
+                },
                 new Product()
                 {
                     Id = Guid.NewGuid(),
@@ -62,21 +72,35 @@ namespace Web.Controllers
                 new Product()
                 {
                     Id = Guid.NewGuid(),
-                    Name = "Product3",
-                    Description = "Description3",
-                    Price = 3,
-                    DeliveryPrice = 33
+                    Name = "Product4",
+                    Description = "Description4",
+                    Price = 4,
+                    DeliveryPrice = 44
                 },
                 new Product()
                 {
                     Id = Guid.NewGuid(),
-                    Name = "Product",
-                    Description = "Description4",
-                    Price = 4,
-                    DeliveryPrice = 44
+                    Name = "Product5",
+                    Description = "Description5",
+                    Price = 5,
+                    DeliveryPrice = 55
                 }
             };
 
+            var response = new ProductListResponse(products);
+            return Ok(response);
+        }
+
+        /// <summary>
+        /// 1. `GET /products` - gets all products.
+        /// 2. `GET /products?name={name}` - finds all products matching the specified name.
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<IActionResult> GetProducts([FromQuery] string name)
+        {
+            var products = string.IsNullOrWhiteSpace(name) ? await _productRepository.GetAllAsync() : await _productRepository.GetProductsByNameAsync(name); // TODO: find a better way of making this extensible in case new query parameters are added
             var response = new ProductListResponse(products);
             return Ok(response);
         }

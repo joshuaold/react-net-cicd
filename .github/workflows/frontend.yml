@@ -1,0 +1,43 @@
+name: Frontend
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+env:
+  WAREHOUSE_SAMPLE_WEB_STORAGE_URL: https://warehousesamplestorage.blob.core.windows.net/$web
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Begin
+        uses: actions/checkout@v2
+
+      - name: Setup node
+        uses: actions/setup-node@v2
+        with:
+          node-version: "14"
+
+      - name: Install node_modules
+        working-directory: ./client
+        run: npm install
+
+      - name: Build client
+        working-directory: ./client
+        run: npm run build
+
+      - name: Install azcopy
+        uses: kheiakiyama/install-azcopy-action@v1
+        with:
+          version: "v10"
+
+      - name: Delete existing client
+        run: azcopy_v10 rm '${{ env.WAREHOUSE_SAMPLE_WEB_STORAGE_URL }}?${{ secrets.WAREHOUSE_SAMPLE_STORAGE_WEB_SAS_ACCOUNT_KEY }}' --recursive
+
+      ## Copy the contents of the azure functions
+      - name: Deploy updated client
+        run: azcopy_v10 copy './client/build/*' '${{ env.WAREHOUSE_SAMPLE_WEB_STORAGE_URL }}?${{ secrets.WAREHOUSE_SAMPLE_STORAGE_WEB_SAS_ACCOUNT_KEY }}' --recursive
