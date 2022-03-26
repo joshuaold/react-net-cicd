@@ -32,7 +32,7 @@ namespace Web.Controllers
                 new Product()
                 {
                     Id = Guid.NewGuid(),
-                    Name = "rf d",
+                    Name = "Main",
                     Description = "New",
                     Price = 3,
                     DeliveryPrice = 33
@@ -40,7 +40,7 @@ namespace Web.Controllers
                  new Product()
                 {
                     Id = Guid.NewGuid(),
-                    Name = "111111",
+                    Name = "Branch",
                     Description = "New",
                     Price = 3,
                     DeliveryPrice = 33
