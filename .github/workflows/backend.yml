@@ -20,19 +20,19 @@ jobs:
 
       - name: Build container
         working-directory: ./server
-        run: docker build . -t $WAREHOUSE_SAMPLE_REGISTRIES_CICD_CONTAINER:${{ github.sha }}
+        run: docker build . -t ${{ WAREHOUSE_SAMPLE_REGISTRIES_CICD_CONTAINER }}${{ github.sha }}
 
       - name: Login to container registry
         working-directory: ./server
-        run: docker login -u ${{ secrets.WAREHOUSE_SAMPLE_REGISTRIES_USERNAME }} -p ${{ secrets.WAREHOUSE_SAMPLE_REGISTRIES_PASSWORD }} $WAREHOUSE_SAMPLE_REGISTRIES_URL
+        run: docker login -u ${{ secrets.WAREHOUSE_SAMPLE_REGISTRIES_USERNAME }} -p ${{ secrets.WAREHOUSE_SAMPLE_REGISTRIES_PASSWORD }} ${{ WAREHOUSE_SAMPLE_REGISTRIES_URL }}
 
       - name: Push built container
         working-directory: ./server
-        run: docker push $WAREHOUSE_SAMPLE_REGISTRIES_CICD_CONTAINER:${{ github.sha }}
+        run: docker push ${{ WAREHOUSE_SAMPLE_REGISTRIES_CICD_CONTAINER }}:${{ github.sha }}
 
       - name: Push built container
         uses: azure/webapps-deploy@v2
         with:
           app-name: "warehousesample"
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
-          images: "$WAREHOUSE_SAMPLE_REGISTRIES_CICD_CONTAINER:${{ github.sha }}"
+          images: "${{ WAREHOUSE_SAMPLE_REGISTRIES_CICD_CONTAINER }}:${{ github.sha }}"

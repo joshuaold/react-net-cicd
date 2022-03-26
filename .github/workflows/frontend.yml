@@ -36,8 +36,8 @@ jobs:
           version: "v10"
 
       - name: Delete existing client
-        run: azcopy_v10 rm '$WAREHOUSE_SAMPLE_WEB_STORAGE_URL?${{ secrets.WAREHOUSE_SAMPLE_STORAGE_WEB_SAS_ACCOUNT_KEY }}' --recursive
+        run: azcopy_v10 rm '${{ WAREHOUSE_SAMPLE_WEB_STORAGE_URL }}?${{ secrets.WAREHOUSE_SAMPLE_STORAGE_WEB_SAS_ACCOUNT_KEY }}' --recursive
 
       ## Copy the contents of the azure functions
       - name: Deploy updated client
-        run: azcopy_v10 copy './client/build/*' '$WAREHOUSE_SAMPLE_WEB_STORAGE_URL?${{ secrets.WAREHOUSE_SAMPLE_STORAGE_WEB_SAS_ACCOUNT_KEY }}' --recursive
+        run: azcopy_v10 copy './client/build/*' '${{ WAREHOUSE_SAMPLE_WEB_STORAGE_URL }}?${{ secrets.WAREHOUSE_SAMPLE_STORAGE_WEB_SAS_ACCOUNT_KEY }}' --recursive
