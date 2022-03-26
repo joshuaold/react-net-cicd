@@ -3,7 +3,7 @@ name: Backend
 on:
   push:
     branches:
-      - cicd
+      - main
   workflow_dispatch:
 
 env:
