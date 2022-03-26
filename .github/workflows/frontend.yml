@@ -23,21 +23,20 @@ jobs:
         run: |
           cd client
           npm install
-      - name: Build static app
+
+      - name: Build client
         run: |
           cd client
           npm run build
-      - name: Install azcopy
-        uses: kheiakiyama/install-azcopy-action@v1.0.3
 
-      - uses: kheiakiyama/install-azcopy-action@v1
+      - name: Install azcopy
+        uses: kheiakiyama/install-azcopy-action@v1
         with:
           version: "v10"
 
-      - run: azcopy_v10 rm 'https://warehousesamplestorage.blob.core.windows.net/$web?${{ secrets.WAREHOUSE_SAMPLE_STORAGE_WEB_SAS_ACCOUNT_KEY }}' --recursive
+      - name: Delete existing client
+        run: azcopy_v10 rm 'https://warehousesamplestorage.blob.core.windows.net/$web?${{ secrets.WAREHOUSE_SAMPLE_STORAGE_WEB_SAS_ACCOUNT_KEY }}' --recursive
 
       ## Copy the contents of the azure functions
-      - uses: kheiakiyama/install-azcopy-action@v1
-        with:
-          version: "v10"
-      - run: azcopy_v10 copy './client/build/*' 'https://warehousesamplestorage.blob.core.windows.net/$web?${{ secrets.WAREHOUSE_SAMPLE_STORAGE_WEB_SAS_ACCOUNT_KEY }}' --recursive
+      - name: Deploy updated client
+        run: azcopy_v10 copy './client/build/*' 'https://warehousesamplestorage.blob.core.windows.net/$web?${{ secrets.WAREHOUSE_SAMPLE_STORAGE_WEB_SAS_ACCOUNT_KEY }}' --recursive
