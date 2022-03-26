@@ -1,26 +1,22 @@
-### IMPROVEMENTS
+### OVERVIEW
 
-The project is a .NET Core Web API project
-Converting the project into a .NET Core Web API was done to make it simpler and more robust.
-Cross-platform capabailities, better performance and scalability, and containerization are one of the major technical reasons.
-And because the role I am applying for is a .NET Core focused role, this hopefully shows how .NET Framework projects can be converted into .NET Core
-
-Clean Architecture was used to structure the solution with Domain Driven Design serving as an inspiration.
-The aim for me was to try and create a common language between technical teams and business teams and this architecture is the perfect for it.
-Having a common language allows for better communication (removes barriers), and not just in IT but in all walks of life too.
-When tech and non-tech teams discuss, this allows them to talk in domain concepts (Core) instead of translating business terms into technical terms and vice-versa
-
-There are 4 layers: Web, Infrastructure, Core, Unit.Tests
-Core is where the domain (business logic) lies
-Infrastructure houses the data access layer 
-Web is where the API controllers are, including the request/response objects
-Unit.Tests is where unit tests can be found. At the moment, only a unit tests for ProductController is present but we would add more here as needed
-
-The architecture dependencies look like as follows (excluding Unit.Tests):
-
-Web -> Core, Infrastructure
-Infrastructure -> Core
-Core -> N/A
+The project is a .NET Core Web API project  
+Clean Architecture was used to structure the solution with Domain Driven Design serving as an inspiration.  
+The aim for me was to try and create a common language between technical teams and business teams and this architecture is the perfect for it.  
+Having a common language allows for better communication (removes barriers), and not just in IT but in all walks of life too.  
+When tech and non-tech teams discuss, this allows them to talk in domain concepts (Core) instead of translating business terms into technical terms and vice-versa  
+  
+There are 4 layers: Web, Infrastructure, Core, Unit.Tests  
+* Core is where the domain (business logic) lies  
+* Infrastructure houses the data access layer   
+* Web is where the API controllers are, including the request/response objects  
+* Unit.Tests is where unit tests can be found. At the moment, only a unit tests for ProductController is present but we would add more here as needed  
+  
+The architecture dependencies look like as follows (excluding Unit.Tests):  
+  
+* Web -> Core, Infrastructure
+* Infrastructure -> Core
+* Core -> N/A
 
 ### THINGS THAT NEED TO BE DONE
 
