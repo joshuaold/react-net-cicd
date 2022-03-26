@@ -23,10 +23,12 @@ A more detailed overview of each project can be found in the respective README.m
 
 * in _client/src/App.js_, modify **line 19** into any string
 * int _server/Web/Controllers/ProductsController.cs_, modify **line 35** into any string 
+* open the app to the link provided in a separate email to see the changes you have made  
+_(because the App Service is under a free plan, you may find that upon opening a page, it will take a long time to load but all subsequent request should be fast after that)_
 
 ### THINGS TO BE DONE
 
-1. need to create a rollback workflow (the CICD pipeline is very simple in that all it does is deploy the static frontend and container backend to Azure; if the deployment were to fail, there is no functionality to revert the said deployment to the previosu working version)
+1. need to create a rollback workflow (the CICD pipeline is very simple in that all it does is deploy the static frontend and container backend to Azure; if the deployment were to fail, there is no functionality to revert the said deployment to the previous working version)
 2. the .NET backend is not connected to any DB at the moment to cut down on costs but the code to access the DB is all set up and ready to go
 3. there are only unit tests that run before a container is built and deployed
 4. need to add automated testing that runs after a successful deployment to ensure that the app is working
