@@ -15,7 +15,7 @@ jobs:
       - run: |
           cd server
           docker build . -t warehousesampleregistries.azurecr.io/cicd:${{ github.sha }}
-          docker login -u warehousesampleregistries -p bk4TBuR4+EWDbjUYpcPP5wbkT92rUC5+ https://warehousesampleregistries.azurecr.io
+          docker login -u ${{ secrets.WAREHOUSE_SAMPLE_REGISTRIES_USERNAME }} -p ${{ secrets.WAREHOUSE_SAMPLE_REGISTRIES_PASSWORD }} https://warehousesampleregistries.azurecr.io
           docker push warehousesampleregistries.azurecr.io/cicd:${{ github.sha }}
       - uses: azure/webapps-deploy@v2
         with:

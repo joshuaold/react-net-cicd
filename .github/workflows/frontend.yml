@@ -34,10 +34,10 @@ jobs:
         with:
           version: "v10"
 
-      - run: azcopy_v10 rm 'https://warehousesamplestorage.blob.core.windows.net/$web?sp=racwdli&st=2022-03-25T23:35:20Z&se=2023-03-01T07:35:20Z&spr=https&sv=2020-08-04&sr=c&sig=9FjZ75FG4u%2F20ljInLfcbayfK7RgbKQAffrI9FImugA%3D' --recursive
+      - run: azcopy_v10 rm 'https://warehousesamplestorage.blob.core.windows.net/$web?${{ secrets.WAREHOUSE_SAMPLE_STORAGE_WEB_SAS_ACCOUNT_KEY }}' --recursive
 
       ## Copy the contents of the azure functions
       - uses: kheiakiyama/install-azcopy-action@v1
         with:
           version: "v10"
-      - run: azcopy_v10 copy './client/build/*' 'https://warehousesamplestorage.blob.core.windows.net/$web?sp=racwdli&st=2022-03-25T23:35:20Z&se=2023-03-01T07:35:20Z&spr=https&sv=2020-08-04&sr=c&sig=9FjZ75FG4u%2F20ljInLfcbayfK7RgbKQAffrI9FImugA%3D' --recursive
+      - run: azcopy_v10 copy './client/build/*' 'https://warehousesamplestorage.blob.core.windows.net/$web?${{ secrets.WAREHOUSE_SAMPLE_STORAGE_WEB_SAS_ACCOUNT_KEY }}' --recursive

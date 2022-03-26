@@ -13,7 +13,7 @@ const App = () => {
 
   return (
     <div>
-      <p>List</p>
+      <h1>List</h1>
       {products && products.items.map((product) => <p>{product.name}</p>)}
     </div>
   );
