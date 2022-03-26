@@ -1,6 +1,11 @@
 ### OVERVIEW
 
-This is a React frontend, .NET Core Web API backend project that displays a list of products.  
+This is a React frontend, .NET Core Web API backend project that displays a list of products.
+The 2 main things this project aims to showcase are the following:
+
+1. show how to structure a .NET Core Web API using Clean Architecture
+2. show how to implement a CICD pipeline using Github Actions, Docker, and Azure
+
 The application is hosted in Azure:  
 
 * the frontend is a static website stored in a blob storage  
