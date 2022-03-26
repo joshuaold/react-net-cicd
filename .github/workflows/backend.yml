@@ -13,12 +13,21 @@ jobs:
     steps:
       - name: Begin
         uses: actions/checkout@v2
-      - run: |
-          cd server
-          docker build . -t warehousesampleregistries.azurecr.io/cicd:${{ github.sha }}
-          docker login -u ${{ secrets.WAREHOUSE_SAMPLE_REGISTRIES_USERNAME }} -p ${{ secrets.WAREHOUSE_SAMPLE_REGISTRIES_PASSWORD }} https://warehousesampleregistries.azurecr.io
-          docker push warehousesampleregistries.azurecr.io/cicd:${{ github.sha }}
-      - uses: azure/webapps-deploy@v2
+
+      - name: Build container
+        working-directory: ./server
+        run: docker build . -t warehousesampleregistries.azurecr.io/cicd:${{ github.sha }}
+
+      - name: Login to container registry
+        working-directory: ./server
+        run: docker login -u ${{ secrets.WAREHOUSE_SAMPLE_REGISTRIES_USERNAME }} -p ${{ secrets.WAREHOUSE_SAMPLE_REGISTRIES_PASSWORD }} https://warehousesampleregistries.azurecr.io
+
+      - name: Push built container
+        working-directory: ./server
+        run: docker push warehousesampleregistries.azurecr.io/cicd:${{ github.sha }}
+
+      - name: Push built container
+        uses: azure/webapps-deploy@v2
         with:
           app-name: "warehousesample"
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}

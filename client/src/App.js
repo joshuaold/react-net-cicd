@@ -16,7 +16,7 @@ const App = () => {
 
   return (
     <div>
-      <h1>fghsfsdsdf</h1>
+      <h1>jhkhkj</h1>
       {products && products.items.map((product) => <p>{product.name}</p>)}
     </div>
   );

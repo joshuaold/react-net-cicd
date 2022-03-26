@@ -32,7 +32,7 @@ namespace Web.Controllers
                 new Product()
                 {
                     Id = Guid.NewGuid(),
-                    Name = "Helloasdadasd Worlds",
+                    Name = "rf d",
                     Description = "New",
                     Price = 3,
                     DeliveryPrice = 33
