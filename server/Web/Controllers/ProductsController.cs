@@ -35,6 +35,14 @@ namespace Web.Controllers
 
             var products = new List<Product>()
             {
+                new Product()
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "Hello World",
+                    Description = "New",
+                    Price = 3,
+                    DeliveryPrice = 33
+                },
                  new Product()
                 {
                     Id = Guid.NewGuid(),
