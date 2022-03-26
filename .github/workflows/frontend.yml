@@ -26,7 +26,7 @@ jobs:
       - name: Build static app
         run: |
           cd client
-          CI=false npm run build
+          npm run build
       - name: Install azcopy
         uses: kheiakiyama/install-azcopy-action@v1.0.3
 
