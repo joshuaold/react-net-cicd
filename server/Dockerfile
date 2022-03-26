@@ -16,13 +16,10 @@ COPY . .
 # build the solution
 RUN dotnet build
 
-# # run the unit tests
-# FROM build AS test
-# WORKDIR /app/Unit.Tests
-# # tzdata needed
-# RUN apk add --no-cache tzdata
-
-# RUN dotnet test
+# run the unit tests
+FROM build AS test
+WORKDIR /app/Unit.Tests
+RUN dotnet test
 
 # create a new layer from the build
 FROM build AS publish
@@ -35,18 +32,8 @@ RUN dotnet publish -c Release -o out
 
 FROM mcr.microsoft.com/dotnet/core/aspnet:3.1-alpine AS runtime
 
-# tzdata needed
-# RUN apk add --no-cache tzdata
 WORKDIR /app
 COPY --from=publish /app/Web/out ./
-
-# # expose port 80,443
-# EXPOSE 80
-# EXPOSE 443
-
-# # entity framework fix
-# RUN apk add icu-libs
-# ENV DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=false
 
 # run the web app when the docker image is started
 ENTRYPOINT ["dotnet", "Web.dll"]
