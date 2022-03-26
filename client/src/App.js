@@ -21,7 +21,7 @@ const App = () => {
 
 const getProducts = async () => {
   const response = await get(
-    "https://warehousesample.azurewebsites.net/api/products/"
+    "https://warehousesample.azurewebsites.net/api/products/constant"
   );
 
   return response;

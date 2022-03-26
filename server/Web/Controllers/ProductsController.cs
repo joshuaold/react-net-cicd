@@ -22,14 +22,8 @@ namespace Web.Controllers
             _productRepository = productRepository;
         }
 
-        /// <summary>
-        /// 1. `GET /products` - gets all products.
-        /// 2. `GET /products?name={name}` - finds all products matching the specified name.
-        /// </summary>
-        /// <param name="name"></param>
-        /// <returns></returns>
-        [HttpGet]
-        public async Task<IActionResult> GetProducts([FromQuery] string name)
+        [HttpGet("constant")]
+        public async Task<IActionResult> GetProductsConstant([FromQuery] string name)
         {
             /*var products = string.IsNullOrWhiteSpace(name) ? await _productRepository.GetAllAsync() : await _productRepository.GetProductsByNameAsync(name); // TODO: find a better way of making this extensible in case new query parameters are added*/
 
@@ -93,6 +87,20 @@ namespace Web.Controllers
                 }
             };
 
+            var response = new ProductListResponse(products);
+            return Ok(response);
+        }
+
+        /// <summary>
+        /// 1. `GET /products` - gets all products.
+        /// 2. `GET /products?name={name}` - finds all products matching the specified name.
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<IActionResult> GetProducts([FromQuery] string name)
+        {
+            var products = string.IsNullOrWhiteSpace(name) ? await _productRepository.GetAllAsync() : await _productRepository.GetProductsByNameAsync(name); // TODO: find a better way of making this extensible in case new query parameters are added
             var response = new ProductListResponse(products);
             return Ok(response);
         }
