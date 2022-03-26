@@ -6,6 +6,10 @@ on:
       - cicd
   workflow_dispatch:
 
+env:
+  WAREHOUSE_SAMPLE_REGISTRIES_URL: https://warehousesampleregistries.azurecr.io
+  WAREHOUSE_SAMPLE_REGISTRIES_CICD_CONTAINER: warehousesampleregistries.azurecr.io/cicd
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -16,19 +20,19 @@ jobs:
 
       - name: Build container
         working-directory: ./server
-        run: docker build . -t warehousesampleregistries.azurecr.io/cicd:${{ github.sha }}
+        run: docker build . -t $WAREHOUSE_SAMPLE_REGISTRIES_CICD_CONTAINER:${{ github.sha }}
 
       - name: Login to container registry
         working-directory: ./server
-        run: docker login -u ${{ secrets.WAREHOUSE_SAMPLE_REGISTRIES_USERNAME }} -p ${{ secrets.WAREHOUSE_SAMPLE_REGISTRIES_PASSWORD }} https://warehousesampleregistries.azurecr.io
+        run: docker login -u ${{ secrets.WAREHOUSE_SAMPLE_REGISTRIES_USERNAME }} -p ${{ secrets.WAREHOUSE_SAMPLE_REGISTRIES_PASSWORD }} $WAREHOUSE_SAMPLE_REGISTRIES_URL
 
       - name: Push built container
         working-directory: ./server
-        run: docker push warehousesampleregistries.azurecr.io/cicd:${{ github.sha }}
+        run: docker push $WAREHOUSE_SAMPLE_REGISTRIES_CICD_CONTAINER:${{ github.sha }}
 
       - name: Push built container
         uses: azure/webapps-deploy@v2
         with:
           app-name: "warehousesample"
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
-          images: "warehousesampleregistries.azurecr.io/cicd:${{ github.sha }}"
+          images: "$WAREHOUSE_SAMPLE_REGISTRIES_CICD_CONTAINER:${{ github.sha }}"
